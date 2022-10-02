@@ -14,7 +14,7 @@ Use-cases described in `test/Messenger.ts` file.
 
 ## Usage
 
-This project required installed [NodeJS](https://nodejs.org/en/) and defined environment variables in `.env` file (see `.env.example`).
+This project requires installed [NodeJS](https://nodejs.org/en/) and defined environment variables in `.env` file (see `.env.example`).
 
 ```
 // install 
