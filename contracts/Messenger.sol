@@ -13,7 +13,7 @@ string constant DOMAIN_VERSION = '1';
  * This example demonstrates on-chain typed data signature verification
  * based on EIP 712 standard (https://eips.ethereum.org/EIPS/eip-712).
  * 
- * Users can send off-chain signed messages to contract via the relayer. This approach allows relayer to pay a gas per user.
+ * Users send off-chain signed messages to contract via the relayer. This approach allows relayer to pay a gas per user.
  * The protocol requires message creator signature to prevent message forgery by the relayer.
  * Verificaton function creates fully encoded EIP712 message for specified domain, restore address from signature and match signer with message creator.
  * If signature is valid, new 'Send' event will be created.
