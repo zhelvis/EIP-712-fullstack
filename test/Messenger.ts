@@ -25,18 +25,22 @@ describe('Messenger', function () {
         it('Should emit message on valid signature', async function () {
             const { alice, bob, messenger, dataSigner } = await loadFixture(deployValidatorFixture);
 
+            // Create Alice message
             const message: Messenger.MessageStruct = {
                 from: alice.address,
                 to: bob.address,
                 contents: 'hello!',
             };
 
+            // Create Alice signature
             const signature = dataSigner.sign(message, alice);
 
+            // Send message signed by Alice from Alice account
             expect(await messenger.connect(alice).send(message, signature))
                 .to.emit(messenger, 'Send')
                 .withArgs(message.from, message.to, message.contents);
 
+            // Send message signed by Alice from Bob account
             expect(await messenger.connect(bob).send(message, signature))
                 .to.emit(messenger, 'Send')
                 .withArgs(message.from, message.to, message.contents);
@@ -45,12 +49,14 @@ describe('Messenger', function () {
         it('Should revert on invalid signature', async function () {
             const { alice, bob, messenger, dataSigner } = await loadFixture(deployValidatorFixture);
 
+            // Create Alice message
             const message: Messenger.MessageStruct = {
                 from: alice.address,
                 to: bob.address,
                 contents: 'hello!',
             };
 
+            // Create Bob signature
             const signature = dataSigner.sign(message, bob);
 
             await expect(messenger.connect(alice).send(message, signature)).to.be.revertedWith('Invalid signature');
@@ -59,14 +65,17 @@ describe('Messenger', function () {
         it('Should revert on invalid data', async function () {
             const { alice, bob, messenger, dataSigner } = await loadFixture(deployValidatorFixture);
 
+            // Create Alice message
             const message: Messenger.MessageStruct = {
                 from: alice.address,
                 to: bob.address,
                 contents: 'hello!',
             };
 
+            // Create Alice signature
             const signature = dataSigner.sign(message, alice);
 
+            // Modify Alice message
             message.contents = 'Good bye!';
 
             await expect(messenger.connect(alice).send(message, signature)).to.be.revertedWith('Invalid signature');

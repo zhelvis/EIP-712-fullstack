@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
+
+// TODO: update import from draft-EIP712.sol to EIP712.sol after '@openzeppelin/contracts' package update
 import '@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol';
 import '@openzeppelin/contracts/utils/cryptography/ECDSA.sol';
 
@@ -9,7 +11,7 @@ string constant DOMAIN_VERSION = '1';
 
 /**
  * This example demonstrates on-chain typed data signature verification
- * based on EIP 712 standart (https://eips.ethereum.org/EIPS/eip-712).
+ * based on EIP 712 standard (https://eips.ethereum.org/EIPS/eip-712).
  * 
  * Users can send off-chain signed messages to contract via the relayer. This approach allows relayer to pay a gas per user.
  * The protocol requires message creator signature to prevent message forgery by the relayer.
@@ -31,10 +33,15 @@ contract Messenger is EIP712 {
         string contents;
     }
 
+    // Encoded app binary interface of message struct
     bytes32 constant MESSAGE_TYPEHASH = keccak256('Message(address from,address to,string contents)');
 
+    // Fires on success 'send' transaction
     event Send(address from, address to, string contents);
 
+    /**
+     * Init EIP712 domain separator with specified name and version
+     */
     constructor() EIP712(DOMAIN_NAME, DOMAIN_VERSION) {}
 
     /**
