@@ -1,7 +1,7 @@
-import { task } from "hardhat/config";
+import { task } from 'hardhat/config';
 
-task("deploy_token", "Deploy TEST token").setAction(async (_, { ethers }) => {
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy();
-  await token.deployed();
+task('deploy', 'Deploy example contract').setAction(async (_, { ethers }) => {
+    const Messenger = await ethers.getContractFactory('Messenger');
+    const messenger = await Messenger.deploy();
+    await messenger.deployed();
 });
