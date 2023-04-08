@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.18;
 
 
 // TODO: update import from draft-EIP712.sol to EIP712.sol after '@openzeppelin/contracts' package update
