@@ -1,5 +1,12 @@
 {
-  "name": "hardhat-project",
+  "name": "eip-712-fullstack",
+  "description": "This project implements off-chain typed data signing and on-chain signature verification based on EIP 712 standard (https://eips.ethereum.org/EIPS/eip-712).",
+  "version": "0.0.1",
+  "directories": {
+    "test": "test"
+  },
+  "author": "Vladimir Zhelvis <zhelvisvladimir@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "lint": "eslint **/*.ts"
   },
