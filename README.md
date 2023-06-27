@@ -6,9 +6,9 @@ The "Crypto Messenger" application allows users to send messages through a smart
 
 On-chain signature verification is implemented in `contracts/Messenger.sol`.
 
-This contract extends [EIP 712 domain separator implementation](https://docs.openzeppelin.com/contracts/3.x/api/drafts#EIP712) and use [ECDSA library](https://docs.openzeppelin.com/contracts/3.x/api/cryptography#ECDSA) created by [Openzeppelin](https://docs.openzeppelin.com) team.
+This contract extends [EIP 712 domain separator implementation](https://docs.openzeppelin.com/contracts/4.x/api/utils#EIP712) and use [ECDSA library](https://docs.openzeppelin.com/contracts/4.x/api/utils#ECDSA) created by [Openzeppelin](https://docs.openzeppelin.com) team.
 
-Off-chain signature creation is implemented in `app/dataSigner.ts`. It's helper for web3 [ethers.js](https://docs.ethers.io/v5/) library.
+Off-chain signature creation is implemented in `app/dataSigner.ts`. It's helper for web3 [ethers.js](https://docs.ethers.org/v6/) library.
 
 Use-cases described in `test/Messenger.ts` file.
 

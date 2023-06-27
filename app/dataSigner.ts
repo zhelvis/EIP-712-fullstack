@@ -1,17 +1,6 @@
-import { ethers, Signer, TypedDataField, TypedDataDomain } from 'ethers';
-import { Messenger } from '../typechain-types';
-
-/**
- * 'Signer._signTypedData' typing is missed in ethers v5
- * TODO: delete after major update to v6
- */
-export interface TypedDataSigner extends Signer {
-    _signTypedData(
-        domain: TypedDataDomain,
-        types: Record<string, Array<TypedDataField>>,
-        value: Record<string, unknown>
-    ): Promise<string>;
-}
+import { isAddress } from 'ethers';
+import type { Signer, TypedDataField, TypedDataDomain } from 'ethers';
+import type { Messenger } from '../typechain-types';
 
 /**
  * Helper for off-chain signing {@link Messenger.MessageStruct} based on EIP 712 standard.
@@ -50,7 +39,7 @@ export class DataSigner {
      * @param chainId - id of blockchain network. @see https://eips.ethereum.org/EIPS/eip-155
      */
     constructor(verifyingContract: string, chainId: number) {
-        if (!ethers.utils.isAddress(verifyingContract)) {
+        if (!isAddress(verifyingContract)) {
             throw new Error('verifying contract argument is not address');
         }
 
@@ -70,9 +59,9 @@ export class DataSigner {
      * @param message - Message struct. @see {@link Messenger.MessageStruct}
      * @param signer - Abstraction of an blockchain account,
      * which can be used to sign messages and transactions
-     * and send signed transactions to the network. @see https://docs.ethers.io/v5/api/signer/
+     * and send signed transactions to the network. @see https://docs.ethers.org/v6/api/providers/#Signer
      */
-    public async sign(message: Messenger.MessageStruct, signer: TypedDataSigner): Promise<string> {
-        return signer._signTypedData(this.domain, DataSigner.types, message);
+    public async sign(message: Messenger.MessageStruct, signer: Signer): Promise<string> {
+        return signer.signTypedData(this.domain, DataSigner.types, message);
     }
 }

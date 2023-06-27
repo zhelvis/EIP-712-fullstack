@@ -1,1 +1,1 @@
-export * from './dataSigner';
+export { DataSigner } from './dataSigner';

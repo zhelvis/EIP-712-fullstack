@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-
-// TODO: update import from draft-EIP712.sol to EIP712.sol after '@openzeppelin/contracts' package update
-import '@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol';
+import '@openzeppelin/contracts/utils/cryptography/EIP712.sol';
 import '@openzeppelin/contracts/utils/cryptography/ECDSA.sol';
 
 string constant DOMAIN_NAME = 'Crypto Messenger';

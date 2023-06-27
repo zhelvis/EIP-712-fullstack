@@ -1,7 +1,7 @@
 import { loadFixture } from '@nomicfoundation/hardhat-network-helpers';
 import { expect } from 'chai';
 import { ethers, network } from 'hardhat';
-import { Messenger } from '../typechain-types';
+import type { Messenger } from '../typechain-types';
 import { DataSigner } from '../app';
 
 describe('Messenger', function () {
@@ -16,7 +16,9 @@ describe('Messenger', function () {
 
         const chainId = await network.provider.send('eth_chainId');
 
-        const dataSigner = new DataSigner(messenger.address, chainId);
+        const address = await messenger.getAddress();
+
+        const dataSigner = new DataSigner(address, chainId);
 
         return { messenger, dataSigner, alice, bob };
     }
@@ -33,7 +35,7 @@ describe('Messenger', function () {
             };
 
             // Create Alice signature
-            const signature = dataSigner.sign(message, alice);
+            const signature = await dataSigner.sign(message, alice);
 
             // Send message signed by Alice from Alice account
             expect(await messenger.connect(alice).send(message, signature))
@@ -57,7 +59,7 @@ describe('Messenger', function () {
             };
 
             // Create Bob signature
-            const signature = dataSigner.sign(message, bob);
+            const signature = await dataSigner.sign(message, bob);
 
             await expect(messenger.connect(alice).send(message, signature)).to.be.revertedWith('Invalid signature');
         });
@@ -73,7 +75,7 @@ describe('Messenger', function () {
             };
 
             // Create Alice signature
-            const signature = dataSigner.sign(message, alice);
+            const signature = await dataSigner.sign(message, alice);
 
             // Modify Alice message
             message.contents = 'Good bye!';
